@@ -1,0 +1,351 @@
+<mvc:View
+    controllerName="com.flighttracking.zflighttracking.controller.FlightDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <Page
+        id="flightDetailsPage"
+        title="Flight Details"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="flightDetailsPage">
+
+        <content>
+
+            <VBox
+                id="flightDetailsShell"
+                class="sapUiMediumMargin flightDetailsShell">
+
+
+                <VBox
+                    id="detailsHeroCard"
+                    class="detailsHeroCard">
+
+                    <HBox
+                        id="detailsHeaderRow"
+                        justifyContent="SpaceBetween"
+                        alignItems="Center"
+                        wrap="Wrap"
+                        class="detailHeaderRow">
+
+                        <ObjectIdentifier
+                            id="detailFlightId"
+                            title="{flights>/selectedFlight/FlightId}"
+                            text="{flights>/selectedFlight/AirlineName}" />
+
+                        <ObjectStatus
+                            id="detailFlightStatus"
+                            text="{flights>/selectedFlight/FlightStatus}"
+                            state="{flights>/selectedFlight/StatusState}"
+                            class="sapUiTinyMarginTop sapUiTinyMarginBottom" />
+
+                    </HBox>
+
+
+                    <HBox
+                        id="routeVisualization"
+                        alignItems="Center"
+                        justifyContent="SpaceBetween"
+                        class="routeSummaryCard sapUiMediumMarginTop">
+
+
+                        <VBox
+                            id="departureRouteBox"
+                            alignItems="Center"
+                            class="routeAirportBox">
+
+                            <Title
+                                id="departureAirportCode"
+                                text="{flights>/selectedFlight/DepAirportCode}"
+                                level="H2"
+                                class="airportCode" />
+
+                            <Text
+                                id="departureCityName"
+                                text="{flights>/selectedFlight/DepCityName}" />
+
+                            <Text
+                                id="departureRouteLabel"
+                                text="Departure"
+                                class="routeCaption" />
+
+                        </VBox>
+
+
+                        <VBox
+                            id="routeCenterBox"
+                            alignItems="Center"
+                            class="routeCenterBox">
+
+                            <core:Icon
+                                id="routeFlightIcon"
+                                src="sap-icon://flight"
+                                size="2.25rem"
+                                class="routeFlightIcon" />
+
+                            <Text
+                                id="routeDirectionText"
+                                text="────────────▶"
+                                class="routeDirectionText" />
+
+                            <Text
+                                id="routeDistance"
+                                text="{flights>/selectedFlight/DistanceKm} km"
+                                class="routeCaption" />
+
+                        </VBox>
+
+
+                        <VBox
+                            id="arrivalRouteBox"
+                            alignItems="Center"
+                            class="routeAirportBox">
+
+                            <Title
+                                id="arrivalAirportCode"
+                                text="{flights>/selectedFlight/ArrAirportCode}"
+                                level="H2"
+                                class="airportCode" />
+
+                            <Text
+                                id="arrivalCityName"
+                                text="{flights>/selectedFlight/ArrCityName}" />
+
+                            <Text
+                                id="arrivalRouteLabel"
+                                text="Arrival"
+                                class="routeCaption" />
+
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+
+
+                <VBox
+                    id="flightInformationBox"
+                    class="flightInformationCard sapUiMediumMarginTop">
+
+                    <Title
+                        id="flightInformationTitle"
+                        text="Flight Information"
+                        level="H3"
+                        class="sapUiSmallMarginBottom" />
+
+
+                    <HBox
+                        id="infoRowAirline"
+                        justifyContent="SpaceBetween"
+                        wrap="Wrap"
+                        class="detailInfoRow">
+
+                        <Text
+                            id="detailAirlineLabel"
+                            text="Airline" />
+
+                        <ObjectIdentifier
+                            id="detailAirlineValue"
+                            title="{flights>/selectedFlight/AirlineName}"
+                            text="{flights>/selectedFlight/AirlineCode}" />
+
+                    </HBox>
+
+
+                    <HBox
+                        id="infoRowDeparture"
+                        justifyContent="SpaceBetween"
+                        wrap="Wrap"
+                        class="detailInfoRow">
+
+                        <Text
+                            id="detailDepartureLabel"
+                            text="Departure Airport" />
+
+                        <Text
+                            id="detailDepartureValue"
+                            text="{flights>/selectedFlight/DepCity}" />
+
+                    </HBox>
+
+
+                    <HBox
+                        id="infoRowArrival"
+                        justifyContent="SpaceBetween"
+                        wrap="Wrap"
+                        class="detailInfoRow">
+
+                        <Text
+                            id="detailArrivalLabel"
+                            text="Arrival Airport" />
+
+                        <Text
+                            id="detailArrivalValue"
+                            text="{flights>/selectedFlight/ArrCity}" />
+
+                    </HBox>
+
+
+                    <HBox
+                        id="infoRowDistance"
+                        justifyContent="SpaceBetween"
+                        wrap="Wrap"
+                        class="detailInfoRow">
+
+                        <Text
+                            id="detailDistanceLabel"
+                            text="Approximate Air Distance" />
+
+                        <ObjectStatus
+                            id="detailDistanceValue"
+                            text="{flights>/selectedFlight/DistanceKm} km"
+                            state="Information" />
+
+                    </HBox>
+
+                </VBox>
+
+
+                <VBox
+                    id="bookingInformationBox"
+                    class="flightInformationCard sapUiMediumMarginTop">
+
+                    <OverflowToolbar
+                        id="bookingHeaderToolbar">
+
+                        <Title
+                            id="bookingInformationTitle"
+                            text="Bookings"
+                            level="H3" />
+
+                        <ToolbarSpacer
+                            id="bookingToolbarSpacer" />
+
+                        <ObjectStatus
+                            id="bookingCountStatus"
+                            text="{details>/bookingCountText}"
+                            state="Information" />
+
+                        <Button
+                            id="refreshBookingsButton"
+                            icon="sap-icon://refresh"
+                            type="Transparent"
+                            tooltip="Refresh Bookings"
+                            press=".onRefreshBookings" />
+
+                    </OverflowToolbar>
+
+
+                    <Table
+                        id="bookingsTable"
+                        items="{details>/bookings}"
+                        busy="{details>/bookingsBusy}"
+                        busyIndicatorDelay="0"
+                        growing="true"
+                        growingThreshold="10"
+                        noDataText="No bookings found for this flight."
+                        class="sapUiSmallMarginTop">
+
+                        <columns>
+
+                            <Column
+                                id="bookingIdColumn">
+
+                                <Text
+                                    id="bookingIdHeader"
+                                    text="Booking ID" />
+
+                            </Column>
+
+
+                            <Column
+                                id="passengerIdColumn"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                popinDisplay="Inline">
+
+                                <Text
+                                    id="passengerIdHeader"
+                                    text="Passenger ID" />
+
+                            </Column>
+
+
+                            <Column
+                                id="seatNumberColumn">
+
+                                <Text
+                                    id="seatNumberHeader"
+                                    text="Seat" />
+
+                            </Column>
+
+
+                            <Column
+                                id="bookingDateColumn"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                popinDisplay="Inline">
+
+                                <Text
+                                    id="bookingDateHeader"
+                                    text="Booking Date" />
+
+                            </Column>
+
+                        </columns>
+
+
+                        <items>
+
+                            <ColumnListItem
+                                id="bookingRow">
+
+                                <cells>
+
+                                    <ObjectIdentifier
+                                        id="bookingIdValue"
+                                        title="{details>BookId}"
+                                        text="{details>FlightId}" />
+
+                                    <ObjectIdentifier
+                                        id="passengerIdValue"
+                                        title="{details>PassId}"
+                                        text="Passenger" />
+
+                                    <ObjectStatus
+                                        id="seatNumberValue"
+                                        text="{details>SeatNo}"
+                                        state="Information" />
+
+                                    <Text
+                                        id="bookingDateValue"
+                                        text="{details>BookingDateDisplay}" />
+
+                                </cells>
+
+                            </ColumnListItem>
+
+                        </items>
+
+                    </Table>
+
+                </VBox>
+
+
+                <Button
+                    id="backToDashboardButton"
+                    text="Back to Dashboard"
+                    icon="sap-icon://nav-back"
+                    press=".onNavBack"
+                    class="sapUiMediumMarginTop" />
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

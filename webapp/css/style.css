@@ -1,0 +1,725 @@
+.flightDashboardPage {
+    background: #f4f7fb;
+}
+
+.flightDashboardPage .sapMPageScroll {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(10, 110, 209, 0.07),
+            transparent 28rem
+        ),
+        #f4f7fb;
+}
+
+.flightDashboardShell,
+.flightDetailsShell,
+.standardFlightsShell {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dashboardHeaderCard,
+.detailsHeroCard,
+.standardFlightHeaderCard {
+    position: relative;
+    overflow: hidden;
+    padding: 1.75rem;
+    border-radius: 1.15rem;
+    border: 1px solid #d8e5f2;
+    background:
+        radial-gradient(
+            circle at 88% 15%,
+            rgba(10, 110, 209, 0.14),
+            transparent 18rem
+        ),
+        linear-gradient(
+            135deg,
+            #eef7ff 0%,
+            #f8fbff 52%,
+            #ffffff 100%
+        );
+    box-shadow:
+        0 10px 30px
+        rgba(31, 56, 88, 0.08);
+}
+
+.dashboardHeaderCard::after {
+    content: "";
+    position: absolute;
+    width: 11rem;
+    height: 11rem;
+    right: -4rem;
+    bottom: -6rem;
+    border-radius: 50%;
+    background:
+        rgba(10, 110, 209, 0.06);
+    pointer-events: none;
+}
+
+.dashboardHeroTop {
+    position: relative;
+    z-index: 1;
+    gap: 1rem;
+}
+
+.dashboardHeroIdentity {
+    gap: 1rem;
+    min-width: 0;
+}
+
+.dashboardHeroIconWrap {
+    width: 3.8rem;
+    height: 3.8rem;
+    min-width: 3.8rem;
+    border-radius: 1rem;
+    background: #0a6ed1;
+    box-shadow:
+        0 8px 20px
+        rgba(10, 110, 209, 0.2);
+}
+
+.dashboardHeroIcon {
+    color: #ffffff;
+}
+
+.dashboardHeroCopy {
+    min-width: 0;
+}
+
+.dashboardMainTitle {
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+}
+
+.dashboardSubtitle {
+    max-width: 46rem;
+    margin-top: 0.35rem;
+    color: #4b5f73;
+    line-height: 1.5;
+}
+
+.dashboardHeroMeta {
+    gap: 0.35rem;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboardConnectionStatus {
+    padding: 0.35rem 0.65rem;
+    border: 1px solid #b9e4c8;
+    border-radius: 999px;
+    background: #f3fbf5;
+}
+
+.dashboardHeroTimestamp {
+    color: #66788a;
+    font-size: 0.78rem;
+}
+
+.dashboardQuickSummary {
+    position: relative;
+    z-index: 1;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+}
+
+.summaryPill {
+    gap: 0.45rem;
+    padding: 0.42rem 0.72rem;
+    border:
+        1px solid
+        rgba(10, 110, 209, 0.14);
+    border-radius: 999px;
+    background:
+        rgba(255, 255, 255, 0.82);
+    box-shadow:
+        0 2px 8px
+        rgba(31, 56, 88, 0.04);
+}
+
+.summaryPillIcon {
+    color: #0a6ed1;
+}
+
+.dashboardKpiGrid {
+    gap: 1rem;
+}
+
+.dashboardKpiTile.sapMGT {
+    flex: 1 1 15rem;
+    width: auto !important;
+    min-width: 15rem;
+    margin: 0 !important;
+    border: 1px solid #e0e8f0;
+    border-radius: 1rem;
+    background: #ffffff;
+    box-shadow:
+        0 6px 20px
+        rgba(31, 56, 88, 0.06);
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.dashboardKpiTile.sapMGT:hover {
+    transform: translateY(-2px);
+    border-color: #bad4ed;
+    box-shadow:
+        0 12px 26px
+        rgba(31, 56, 88, 0.11);
+}
+
+.dashboardKpiTile .sapMGTHdrTxt {
+    font-weight: 700;
+}
+
+.dashboardKpiTile .sapMNCValue {
+    font-weight: 800;
+}
+
+.dashboardSectionCard,
+.flightInformationCard {
+    padding: 1.35rem;
+    border: 1px solid #e1e8ef;
+    border-radius: 1rem;
+    background:
+        rgba(255, 255, 255, 0.96);
+    box-shadow:
+        0 7px 24px
+        rgba(31, 56, 88, 0.055);
+}
+
+.sectionHeaderRow {
+    gap: 1rem;
+}
+
+.sectionTitle {
+    font-weight: 750 !important;
+}
+
+.sectionSubtitle {
+    margin-top: 0.2rem;
+    color: #697b8d;
+    line-height: 1.4;
+}
+
+.analyticsGrid {
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.analyticsCard {
+    flex: 1 1 18rem;
+    min-width: 18rem;
+    padding: 1rem 1.05rem;
+    border: 1px solid #e3e9ef;
+    border-radius: 0.9rem;
+    background: #fbfcfe;
+}
+
+.analyticsCardSuccess {
+    border-top: 3px solid #188918;
+}
+
+.analyticsCardWarning {
+    border-top: 3px solid #e9730c;
+}
+
+.analyticsCardError {
+    border-top: 3px solid #bb0000;
+}
+
+.analyticsLabel {
+    font-weight: 700;
+    color: #324a5f;
+}
+
+.operationsSection {
+    margin-bottom: 1.5rem;
+}
+
+.dashboardToolbar,
+.filterToolbar {
+    min-height: 3.25rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid #e0e7ef;
+    border-radius: 0.85rem;
+    background: #ffffff;
+}
+
+.dashboardToolbar {
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255, 255, 255, 0.35);
+}
+
+.dashboardToolbar .sapMBtn {
+    margin-right: 0.15rem;
+}
+
+.autoRefreshLabel {
+    font-weight: 600;
+    color: #52677a;
+}
+
+.filterToolbar {
+    background: #f8fafc;
+}
+
+.statusFilterLabel {
+    font-weight: 600;
+    color: #52677a;
+}
+
+.flightSearchResponsive {
+    max-width: 26rem;
+}
+
+.flightTablePremium {
+    overflow: hidden;
+    border: 1px solid #dfe7ef;
+    border-radius: 0.9rem;
+    background: #ffffff;
+    box-shadow:
+        0 4px 16px
+        rgba(31, 56, 88, 0.045);
+}
+
+.flightTablePremium .sapMListTblHeader {
+    background: #f6f9fc;
+}
+
+.flightTablePremium
+.sapMListTblHeaderCell {
+    border-bottom:
+        1px solid #dbe5ee;
+}
+
+.flightTablePremium
+.sapMListTblHeaderCell
+.sapMText {
+    font-weight: 700;
+    color: #324a5f;
+}
+
+.flightTablePremium
+.sapMListTblRow {
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+}
+
+.flightTablePremium
+.sapMListTblRow:hover {
+    background: #f5f9fe;
+}
+
+.flightTablePremium
+.sapMListTblCell {
+    border-bottom-color: #edf1f5;
+}
+
+.flightTableHeaderToolbar {
+    background: #ffffff !important;
+    border-bottom:
+        1px solid #e6edf3;
+}
+
+.flightIdCell
+.sapMObjectIdentifierTitle
+.sapMText {
+    font-weight: 750;
+    color: #0a6ed1;
+}
+
+.flightStatusCell
+.sapMObjStatusText {
+    font-weight: 700;
+}
+
+.tableCountSeparator,
+.tableTotalCount {
+    color: #7a8c9d;
+}
+
+.lastUpdatedToolbar {
+    min-height: 2.75rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid #e4eaf0;
+    border-radius: 0.75rem;
+    background: #f8fafc;
+}
+
+.lastUpdatedIcon {
+    color: #0a6ed1;
+}
+
+.lastUpdatedLabel {
+    font-weight: 650;
+    color: #53687a;
+}
+
+.lastUpdatedValue,
+.dataSourceLabel {
+    color: #748596;
+}
+
+.createFlightDialog
+.sapMDialogTitle {
+    font-weight: 750;
+}
+
+.createFlightDialog
+.sapMDialogScrollCont {
+    padding: 0;
+}
+
+.createFlightDialogContent {
+    padding: 1.25rem;
+    background: #f7f9fc;
+}
+
+.createDialogSection {
+    padding: 1.15rem;
+    border: 1px solid #e0e8f0;
+    border-radius: 0.95rem;
+    background: #ffffff;
+    box-shadow:
+        0 4px 14px
+        rgba(31, 56, 88, 0.045);
+}
+
+.createDialogSectionHeader,
+.createBookingsHeading {
+    gap: 0.75rem;
+}
+
+.createDialogSectionIcon {
+    color: #0a6ed1;
+}
+
+.createFieldGrid {
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.createFieldBox {
+    flex: 1 1 13rem;
+    min-width: 13rem;
+}
+
+.createFieldBox
+.sapMLabel {
+    margin-bottom: 0.3rem;
+    font-weight: 650;
+    color: #435a6e;
+}
+
+.createFieldBox
+.sapMInputBase,
+.createFieldBox
+.sapMSlt {
+    width: 100%;
+}
+
+.createBookingsToolbar {
+    padding: 0;
+    background:
+        transparent !important;
+    border: 0 !important;
+}
+
+.createBookingsTable {
+    overflow: hidden;
+    border: 1px solid #e0e8f0;
+    border-radius: 0.75rem;
+}
+
+.createBookingsTable
+.sapMListTblHeader {
+    background: #f6f9fc;
+}
+
+.createBookingsTable
+.sapMListTblHeaderCell
+.sapMText {
+    font-weight: 700;
+    color: #40566b;
+}
+
+.routeSummaryCard {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background:
+        linear-gradient(
+            135deg,
+            #eff7ff,
+            #ffffff
+        );
+    border: 1px solid #dce9f4;
+}
+
+.routeAirportBox {
+    min-width: 9rem;
+}
+
+.routeCenterBox {
+    min-width: 12rem;
+}
+
+.airportCode {
+    font-weight: 700;
+}
+
+.routeCaption {
+    opacity: 0.65;
+    margin-top: 0.2rem;
+}
+
+.routeFlightIcon {
+    margin-bottom: 0.3rem;
+}
+
+.routeDirectionText {
+    white-space: nowrap;
+}
+
+.detailInfoRow {
+    padding: 0.85rem 0;
+    border-bottom:
+        1px solid #edf0f2;
+}
+
+.detailInfoRow:last-child {
+    border-bottom: 0;
+}
+
+.standardFlightsShell {
+    max-width: 1500px;
+}
+
+.standardFlightHeaderCard {
+    padding: 1.5rem;
+}
+
+@media (max-width: 900px) {
+
+    .dashboardHeroMeta {
+        width: 100%;
+        align-items:
+            flex-start !important;
+        margin-top: 0.75rem;
+    }
+
+    .dashboardKpiTile.sapMGT {
+        flex-basis:
+            calc(50% - 0.5rem);
+        min-width: 14rem;
+    }
+
+    .analyticsCard {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .flightDashboardShell,
+    .flightDetailsShell,
+    .standardFlightsShell {
+        margin-left:
+            0.5rem !important;
+        margin-right:
+            0.5rem !important;
+    }
+
+    .dashboardHeaderCard,
+    .detailsHeroCard,
+    .dashboardSectionCard,
+    .flightInformationCard,
+    .standardFlightHeaderCard {
+        padding: 1rem;
+        border-radius: 0.9rem;
+    }
+
+    .dashboardHeroIdentity {
+        width: 100%;
+        align-items:
+            flex-start !important;
+    }
+
+    .dashboardHeroIconWrap {
+        width: 3rem;
+        height: 3rem;
+        min-width: 3rem;
+        border-radius: 0.8rem;
+    }
+
+    .dashboardMainTitle {
+        font-size:
+            1.45rem !important;
+        line-height:
+            1.2 !important;
+    }
+
+    .dashboardSubtitle {
+        font-size: 0.88rem;
+    }
+
+    .dashboardQuickSummary {
+        gap: 0.45rem;
+    }
+
+    .summaryPill {
+        padding:
+            0.35rem 0.6rem;
+    }
+
+    .dashboardKpiGrid {
+        gap: 0.7rem;
+    }
+
+    .dashboardKpiTile.sapMGT {
+        flex: 1 1 100%;
+        width:
+            100% !important;
+        min-width: 0;
+    }
+
+    .analyticsCard {
+        width:
+            100% !important;
+        min-width: 0;
+        margin-right:
+            0 !important;
+    }
+
+    .dashboardToolbar,
+    .filterToolbar {
+        border-radius: 0.75rem;
+    }
+
+    .flightFilterBar {
+        width: 100%;
+        align-items:
+            stretch !important;
+    }
+
+    .flightSearchResponsive {
+        width:
+            100% !important;
+        max-width:
+            none !important;
+        margin-right:
+            0 !important;
+    }
+
+    .statusFilterLabel {
+        width: 100%;
+        margin-top: 0.25rem;
+    }
+
+    .statusSelectResponsive {
+        width:
+            100% !important;
+    }
+
+    .dataSourceLabel {
+        display:
+            none !important;
+    }
+
+    .createFlightDialogContent {
+        padding: 0.75rem;
+    }
+
+    .createDialogSection {
+        padding: 0.85rem;
+    }
+
+    .createFieldGrid {
+        gap: 0.65rem;
+    }
+
+    .createFieldBox {
+        flex: 1 1 100%;
+        width:
+            100% !important;
+        min-width: 0;
+    }
+
+    .detailHeaderRow {
+        flex-direction:
+            column !important;
+        align-items:
+            flex-start !important;
+    }
+
+    .routeSummaryCard {
+        flex-direction:
+            column !important;
+        padding: 1rem;
+    }
+
+    .routeAirportBox,
+    .routeCenterBox {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .routeDirectionText {
+        transform:
+            rotate(90deg);
+        margin: 1rem 0;
+    }
+
+    .detailInfoRow {
+        flex-direction:
+            column !important;
+        align-items:
+            flex-start !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .flightDashboardShell {
+        margin-left:
+            0.25rem !important;
+        margin-right:
+            0.25rem !important;
+    }
+
+    .dashboardHeaderCard,
+    .dashboardSectionCard {
+        padding: 0.85rem;
+    }
+
+    .dashboardHeroIconWrap {
+        display:
+            none !important;
+    }
+
+    .dashboardHeroIdentity {
+        gap: 0;
+    }
+
+    .dashboardMainTitle {
+        font-size:
+            1.3rem !important;
+    }
+
+    .summaryPill {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .lastUpdatedToolbar {
+        padding-left: 0.45rem;
+        padding-right: 0.45rem;
+    }
+}

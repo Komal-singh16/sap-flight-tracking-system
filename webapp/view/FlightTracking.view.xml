@@ -1,0 +1,1056 @@
+<mvc:View
+    controllerName="com.flighttracking.zflighttracking.controller.FlightTracking"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <Page
+        id="page"
+        title="Flight Tracking System"
+        class="flightDashboardPage">
+
+        <content>
+
+            <VBox
+                id="flightTrackingVBox"
+                class="sapUiMediumMargin flightDashboardShell">
+
+                <VBox
+                    id="dashboardHeader"
+                    class="dashboardHeaderCard">
+
+                    <HBox
+                        id="dashboardHeroTop"
+                        justifyContent="SpaceBetween"
+                        alignItems="Center"
+                        wrap="Wrap"
+                        class="dashboardHeroTop">
+
+                        <HBox
+                            id="dashboardHeroIdentity"
+                            alignItems="Center"
+                            class="dashboardHeroIdentity">
+
+                            <VBox
+                                id="dashboardHeroIconWrap"
+                                alignItems="Center"
+                                justifyContent="Center"
+                                class="dashboardHeroIconWrap">
+
+                                <core:Icon
+                                    id="dashboardHeroIcon"
+                                    src="sap-icon://flight"
+                                    size="1.65rem"
+                                    class="dashboardHeroIcon" />
+
+                            </VBox>
+
+                            <VBox
+                                id="dashboardHeroCopy"
+                                class="dashboardHeroCopy">
+
+                                <Title
+                                    id="dashboardTitle"
+                                    text="Flight Operations Dashboard"
+                                    level="H1"
+                                    class="dashboardMainTitle" />
+
+                                <Text
+                                    id="welcomeText"
+                                    text="Monitor SAP flight records, operational status and booking activity from one workspace."
+                                    class="dashboardSubtitle" />
+
+                            </VBox>
+
+                        </HBox>
+
+                        <VBox
+                            id="dashboardHeroMeta"
+                            alignItems="End"
+                            class="dashboardHeroMeta">
+
+                            <ObjectStatus
+                                id="systemStatus"
+                                text="SAP OData Connected"
+                                icon="sap-icon://connected"
+                                state="Success"
+                                class="dashboardConnectionStatus" />
+
+                            <Text
+                                id="heroLastUpdated"
+                                text="{= ${flights>/lastUpdated} ? 'Updated: ' + ${flights>/lastUpdated} : 'Not loaded yet' }"
+                                class="dashboardHeroTimestamp" />
+
+                        </VBox>
+
+                    </HBox>
+
+                    <HBox
+                        id="dashboardQuickSummary"
+                        wrap="Wrap"
+                        class="dashboardQuickSummary">
+
+                        <HBox
+                            id="summaryTotalFlights"
+                            alignItems="Center"
+                            class="summaryPill">
+
+                            <core:Icon
+                                id="summaryTotalIcon"
+                                src="sap-icon://flight"
+                                class="summaryPillIcon" />
+
+                            <Text
+                                id="summaryTotalText"
+                                text="{flights>/count} total flights" />
+
+                        </HBox>
+
+                        <HBox
+                            id="summaryOnTime"
+                            alignItems="Center"
+                            class="summaryPill">
+
+                            <core:Icon
+                                id="summaryOnTimeIcon"
+                                src="sap-icon://accept"
+                                class="summaryPillIcon" />
+
+                            <Text
+                                id="summaryOnTimeText"
+                                text="{flights>/onTimeCount} on time" />
+
+                        </HBox>
+
+                        <HBox
+                            id="summaryDelayed"
+                            alignItems="Center"
+                            class="summaryPill">
+
+                            <core:Icon
+                                id="summaryDelayedIcon"
+                                src="sap-icon://lateness"
+                                class="summaryPillIcon" />
+
+                            <Text
+                                id="summaryDelayedText"
+                                text="{flights>/delayedCount} delayed" />
+
+                        </HBox>
+
+                    </HBox>
+
+                </VBox>
+
+                <HBox
+                    id="kpiContainer"
+                    wrap="Wrap"
+                    class="dashboardKpiGrid sapUiMediumMarginTop">
+
+                    <GenericTile
+                        id="totalFlightsTile"
+                        header="Total Flights"
+                        subheader="All SAP records"
+                        press=".onShowAllFlights"
+                        class="kpiTile dashboardKpiTile">
+
+                        <TileContent
+                            id="totalFlightsTileContent">
+
+                            <NumericContent
+                                id="totalFlightsNumber"
+                                value="{flights>/count}"
+                                icon="sap-icon://flight"
+                                valueColor="Neutral" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                        id="onTimeFlightsTile"
+                        header="On Time"
+                        subheader="Operating normally"
+                        press=".onShowOnTimeFlights"
+                        class="kpiTile dashboardKpiTile">
+
+                        <TileContent
+                            id="onTimeFlightsTileContent">
+
+                            <NumericContent
+                                id="onTimeFlightsNumber"
+                                value="{flights>/onTimeCount}"
+                                icon="sap-icon://accept"
+                                valueColor="Good" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                        id="delayedFlightsTile"
+                        header="Delayed"
+                        subheader="Needs attention"
+                        press=".onShowDelayedFlights"
+                        class="kpiTile dashboardKpiTile">
+
+                        <TileContent
+                            id="delayedFlightsTileContent">
+
+                            <NumericContent
+                                id="delayedFlightsNumber"
+                                value="{flights>/delayedCount}"
+                                icon="sap-icon://lateness"
+                                valueColor="Critical" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                    <GenericTile
+                        id="cancelledFlightsTile"
+                        header="Cancelled"
+                        subheader="Not operating"
+                        press=".onShowCancelledFlights"
+                        class="kpiTile dashboardKpiTile">
+
+                        <TileContent
+                            id="cancelledFlightsTileContent">
+
+                            <NumericContent
+                                id="cancelledFlightsNumber"
+                                value="{flights>/cancelledCount}"
+                                icon="sap-icon://decline"
+                                valueColor="Error" />
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                </HBox>
+
+                <VBox
+                    id="flightAnalyticsBox"
+                    class="dashboardSectionCard analyticsSection sapUiMediumMarginTop">
+
+                    <HBox
+                        id="analyticsSectionHeader"
+                        justifyContent="SpaceBetween"
+                        alignItems="Center"
+                        wrap="Wrap"
+                        class="sectionHeaderRow">
+
+                        <VBox
+                            id="analyticsSectionTitleWrap">
+
+                            <Title
+                                id="analyticsTitle"
+                                text="Flight Status Overview"
+                                level="H3"
+                                class="sectionTitle" />
+
+                            <Text
+                                id="analyticsSubtitle"
+                                text="A quick operational snapshot of the currently loaded flight records."
+                                class="sectionSubtitle" />
+
+                        </VBox>
+
+                        <ObjectStatus
+                            id="analyticsTotalStatus"
+                            text="{flights>/count} Flights"
+                            icon="sap-icon://activity-individual"
+                            state="Information" />
+
+                    </HBox>
+
+                    <HBox
+                        id="analyticsContainer"
+                        wrap="Wrap"
+                        class="analyticsGrid">
+
+                        <VBox
+                            id="onTimeAnalyticsBox"
+                            class="analyticsCard analyticsCardSuccess">
+
+                            <HBox
+                                id="onTimeAnalyticsHeader"
+                                justifyContent="SpaceBetween"
+                                alignItems="Center">
+
+                                <Text
+                                    id="onTimeAnalyticsLabel"
+                                    text="On Time"
+                                    class="analyticsLabel" />
+
+                                <ObjectStatus
+                                    id="onTimeAnalyticsValue"
+                                    text="{flights>/onTimeCount}"
+                                    state="Success" />
+
+                            </HBox>
+
+                            <ProgressIndicator
+                                id="onTimeProgress"
+                                percentValue="{flights>/onTimePercent}"
+                                displayValue="{flights>/onTimeCount} Flights"
+                                state="Success"
+                                width="100%"
+                                class="sapUiSmallMarginTop" />
+
+                        </VBox>
+
+                        <VBox
+                            id="delayedAnalyticsBox"
+                            class="analyticsCard analyticsCardWarning">
+
+                            <HBox
+                                id="delayedAnalyticsHeader"
+                                justifyContent="SpaceBetween"
+                                alignItems="Center">
+
+                                <Text
+                                    id="delayedAnalyticsLabel"
+                                    text="Delayed"
+                                    class="analyticsLabel" />
+
+                                <ObjectStatus
+                                    id="delayedAnalyticsValue"
+                                    text="{flights>/delayedCount}"
+                                    state="Warning" />
+
+                            </HBox>
+
+                            <ProgressIndicator
+                                id="delayedProgress"
+                                percentValue="{flights>/delayedPercent}"
+                                displayValue="{flights>/delayedCount} Flights"
+                                state="Warning"
+                                width="100%"
+                                class="sapUiSmallMarginTop" />
+
+                        </VBox>
+
+                        <VBox
+                            id="cancelledAnalyticsBox"
+                            class="analyticsCard analyticsCardError">
+
+                            <HBox
+                                id="cancelledAnalyticsHeader"
+                                justifyContent="SpaceBetween"
+                                alignItems="Center">
+
+                                <Text
+                                    id="cancelledAnalyticsLabel"
+                                    text="Cancelled"
+                                    class="analyticsLabel" />
+
+                                <ObjectStatus
+                                    id="cancelledAnalyticsValue"
+                                    text="{flights>/cancelledCount}"
+                                    state="Error" />
+
+                            </HBox>
+
+                            <ProgressIndicator
+                                id="cancelledProgress"
+                                percentValue="{flights>/cancelledPercent}"
+                                displayValue="{flights>/cancelledCount} Flights"
+                                state="Error"
+                                width="100%"
+                                class="sapUiSmallMarginTop" />
+
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+
+                <VBox
+                    id="operationsWorkspace"
+                    class="dashboardSectionCard operationsSection sapUiMediumMarginTop">
+
+                    <HBox
+                        id="operationsSectionHeader"
+                        justifyContent="SpaceBetween"
+                        alignItems="Center"
+                        wrap="Wrap"
+                        class="sectionHeaderRow">
+
+                        <VBox
+                            id="operationsSectionTitleWrap">
+
+                            <Title
+                                id="operationsTitle"
+                                text="Flight Operations"
+                                level="H3"
+                                class="sectionTitle" />
+
+                            <Text
+                                id="operationsSubtitle"
+                                text="Load, create, search and filter flight records."
+                                class="sectionSubtitle" />
+
+                        </VBox>
+
+                        <ObjectStatus
+                            id="shownFlightCountHeader"
+                            text="{flights>/filteredCount} shown"
+                            state="Information" />
+
+                    </HBox>
+
+                    <OverflowToolbar
+                        id="mainActionToolbar"
+                        class="dashboardToolbar sapUiSmallMarginTop">
+
+                        <Button
+                            id="createFlightButton"
+                            text="Create Flight &amp; Bookings"
+                            icon="sap-icon://add"
+                            type="Accept"
+                            press=".onOpenCreateFlightDialog" />
+
+                        <Button
+                            id="loadFlightsButton"
+                            text="Load Flight Data"
+                            type="Emphasized"
+                            icon="sap-icon://refresh"
+                            press=".onLoadFlights" />
+
+                        <Button
+                            id="openStandardFlightsButton"
+                            text="SAP Standard Flights"
+                            icon="sap-icon://flight"
+                            type="Transparent"
+                            press=".onOpenStandardFlights" />
+
+                        <ToolbarSpacer
+                            id="mainActionSpacer" />
+
+                        <Label
+                            id="autoRefreshLabel"
+                            text="Auto Refresh"
+                            class="autoRefreshLabel" />
+
+                        <Switch
+                            id="autoRefreshSwitch"
+                            state="{flights>/autoRefresh}"
+                            change=".onAutoRefreshChange" />
+
+                    </OverflowToolbar>
+
+                    <HBox
+                        id="flightFilterBar"
+                        wrap="Wrap"
+                        alignItems="Center"
+                        class="filterToolbar flightFilterBar sapUiSmallMarginTop">
+
+                        <SearchField
+                            id="flightSearchField"
+                            width="26rem"
+                            placeholder="Search flight, airline, city or status..."
+                            liveChange=".onSearchFlights"
+                            class="flightSearchResponsive sapUiTinyMarginEnd sapUiTinyMarginBottom" />
+
+                        <Label
+                            id="statusFilterLabel"
+                            text="Status"
+                            class="statusFilterLabel sapUiTinyMarginEnd sapUiTinyMarginBottom" />
+
+                        <Select
+                            id="statusFilterSelect"
+                            width="12rem"
+                            selectedKey="ALL"
+                            change=".onStatusFilterChange"
+                            class="statusSelectResponsive sapUiTinyMarginBottom">
+
+                            <items>
+
+                                <core:Item
+                                    id="statusAllItem"
+                                    key="ALL"
+                                    text="All Flights" />
+
+                                <core:Item
+                                    id="statusOnTimeItem"
+                                    key="ON TIME"
+                                    text="On Time" />
+
+                                <core:Item
+                                    id="statusDelayedItem"
+                                    key="DELAYED"
+                                    text="Delayed" />
+
+                                <core:Item
+                                    id="statusDepartedItem"
+                                    key="DEPARTED"
+                                    text="Departed" />
+
+                                <core:Item
+                                    id="statusLandedItem"
+                                    key="LANDED"
+                                    text="Landed" />
+
+                                <core:Item
+                                    id="statusCancelledItem"
+                                    key="CANCELLED"
+                                    text="Cancelled" />
+
+                            </items>
+
+                        </Select>
+
+                    </HBox>
+
+                    <Table
+                        id="flightTable"
+                        items="{flights>/results}"
+                        growing="true"
+                        growingThreshold="20"
+                        noDataText="No flight records to display. Use Load Flight Data to retrieve SAP data."
+                        class="flightTablePremium sapUiSmallMarginTop">
+
+                        <headerToolbar>
+
+                            <OverflowToolbar
+                                id="flightTableToolbar"
+                                class="flightTableHeaderToolbar">
+
+                                <Title
+                                    id="availableFlightsTitle"
+                                    text="Available Flights"
+                                    level="H3" />
+
+                                <ToolbarSpacer
+                                    id="flightTableToolbarSpacer" />
+
+                                <ObjectStatus
+                                    id="shownFlightCount"
+                                    text="{flights>/filteredCount} Shown"
+                                    state="Information" />
+
+                                <Text
+                                    id="flightCountSeparator"
+                                    text="of"
+                                    class="tableCountSeparator" />
+
+                                <Text
+                                    id="totalFlightCountText"
+                                    text="{flights>/count} Total"
+                                    class="tableTotalCount" />
+
+                            </OverflowToolbar>
+
+                        </headerToolbar>
+
+                        <columns>
+
+                            <Column
+                                id="flightIdColumn">
+
+                                <Text
+                                    id="flightIdColumnText"
+                                    text="Flight ID" />
+
+                            </Column>
+
+                            <Column
+                                id="airlineColumn"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                popinDisplay="Inline">
+
+                                <Text
+                                    id="airlineColumnText"
+                                    text="Airline" />
+
+                            </Column>
+
+                            <Column
+                                id="departureColumn"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                popinDisplay="Inline">
+
+                                <Text
+                                    id="departureColumnText"
+                                    text="Departure" />
+
+                            </Column>
+
+                            <Column
+                                id="arrivalColumn"
+                                minScreenWidth="Tablet"
+                                demandPopin="true"
+                                popinDisplay="Inline">
+
+                                <Text
+                                    id="arrivalColumnText"
+                                    text="Arrival" />
+
+                            </Column>
+
+                            <Column
+                                id="statusColumn">
+
+                                <Text
+                                    id="statusColumnText"
+                                    text="Status" />
+
+                            </Column>
+
+                        </columns>
+
+                        <items>
+
+                            <ColumnListItem
+                                id="flightRow"
+                                type="Navigation"
+                                press=".onFlightPress"
+                                class="flightTableRow">
+
+                                <cells>
+
+                                    <ObjectIdentifier
+                                        id="flightIdValue"
+                                        title="{flights>FlightId}"
+                                        class="flightIdCell" />
+
+                                    <ObjectIdentifier
+                                        id="airlineValue"
+                                        title="{flights>AirlineName}"
+                                        text="{flights>AirlineCode}" />
+
+                                    <Text
+                                        id="departureValue"
+                                        text="{flights>DepCity}" />
+
+                                    <Text
+                                        id="arrivalValue"
+                                        text="{flights>ArrCity}" />
+
+                                    <ObjectStatus
+                                        id="flightStatusValue"
+                                        text="{flights>FlightStatus}"
+                                        state="{flights>StatusState}"
+                                        class="flightStatusCell" />
+
+                                </cells>
+
+                            </ColumnListItem>
+
+                        </items>
+
+                    </Table>
+
+                    <OverflowToolbar
+                        id="updateInformationToolbar"
+                        class="lastUpdatedToolbar sapUiSmallMarginTop">
+
+                        <core:Icon
+                            id="lastUpdatedIcon"
+                            src="sap-icon://history"
+                            class="lastUpdatedIcon" />
+
+                        <Text
+                            id="lastUpdatedLabel"
+                            text="Last Updated"
+                            class="lastUpdatedLabel" />
+
+                        <Text
+                            id="lastUpdatedValue"
+                            text="{flights>/lastUpdated}"
+                            class="lastUpdatedValue" />
+
+                        <ToolbarSpacer
+                            id="lastUpdatedSpacer" />
+
+                        <Text
+                            id="dataSourceLabel"
+                            text="Source: ZFLIGHTSet"
+                            class="dataSourceLabel" />
+
+                    </OverflowToolbar>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
+        <dependents>
+
+            <Dialog
+                id="createFlightDialog"
+                title="Create Flight &amp; Bookings"
+                contentWidth="72rem"
+                contentHeight="auto"
+                stretchOnPhone="true"
+                afterClose=".onCreateFlightDialogAfterClose"
+                class="createFlightDialog">
+
+                <content>
+
+                    <VBox
+                        id="createFlightDialogContent"
+                        class="createFlightDialogContent">
+
+                        <MessageStrip
+                            id="deepInsertMessageStrip"
+                            text="Create the flight and its booking records together in one SAP OData Deep Insert request."
+                            type="Information"
+                            showIcon="true"
+                            showCloseButton="false"
+                            class="sapUiSmallMarginBottom" />
+
+                        <VBox
+                            id="createFlightSection"
+                            class="createDialogSection">
+
+                            <HBox
+                                id="createFlightSectionHeader"
+                                alignItems="Center"
+                                class="createDialogSectionHeader">
+
+                                <core:Icon
+                                    id="createFlightSectionIcon"
+                                    src="sap-icon://flight"
+                                    class="createDialogSectionIcon" />
+
+                                <VBox
+                                    id="createFlightSectionHeadingWrap">
+
+                                    <Title
+                                        id="createFlightSectionTitle"
+                                        text="Flight Details"
+                                        level="H4" />
+
+                                    <Text
+                                        id="createFlightSectionSubtitle"
+                                        text="Enter the parent ZFLIGHT record." />
+
+                                </VBox>
+
+                            </HBox>
+
+                            <HBox
+                                id="createFlightFieldsRow"
+                                wrap="Wrap"
+                                class="createFieldGrid">
+
+                                <VBox
+                                    id="createFlightIdField"
+                                    class="createFieldBox">
+
+                                    <Label
+                                        id="createFlightIdLabel"
+                                        text="Flight ID"
+                                        required="true"
+                                        labelFor="createFlightIdInput" />
+
+                                    <Input
+                                        id="createFlightIdInput"
+                                        value="{createFlight>/FlightId}"
+                                        placeholder="e.g. DF00000003"
+                                        maxLength="10" />
+
+                                </VBox>
+
+                                <VBox
+                                    id="createAirlineCodeField"
+                                    class="createFieldBox">
+
+                                    <Label
+                                        id="createAirlineCodeLabel"
+                                        text="Airline Code"
+                                        required="true"
+                                        labelFor="createAirlineCodeInput" />
+
+                                    <Input
+                                        id="createAirlineCodeInput"
+                                        value="{createFlight>/AirlineCode}"
+                                        placeholder="e.g. AA"
+                                        maxLength="5" />
+
+                                </VBox>
+
+                                <VBox
+                                    id="createDepartureCityField"
+                                    class="createFieldBox">
+
+                                    <Label
+                                        id="createDepartureCityLabel"
+                                        text="Departure City"
+                                        required="true"
+                                        labelFor="createDepartureCityInput" />
+
+                                    <Input
+                                        id="createDepartureCityInput"
+                                        value="{createFlight>/DepCity}"
+                                        placeholder="e.g. NEW YORK"
+                                        maxLength="30" />
+
+                                </VBox>
+
+                                <VBox
+                                    id="createArrivalCityField"
+                                    class="createFieldBox">
+
+                                    <Label
+                                        id="createArrivalCityLabel"
+                                        text="Arrival City"
+                                        required="true"
+                                        labelFor="createArrivalCityInput" />
+
+                                    <Input
+                                        id="createArrivalCityInput"
+                                        value="{createFlight>/ArrCity}"
+                                        placeholder="e.g. SAN FRANCISCO"
+                                        maxLength="30" />
+
+                                </VBox>
+
+                                <VBox
+                                    id="createFlightStatusField"
+                                    class="createFieldBox">
+
+                                    <Label
+                                        id="createFlightStatusLabel"
+                                        text="Flight Status"
+                                        required="true"
+                                        labelFor="createFlightStatusSelect" />
+
+                                    <Select
+                                        id="createFlightStatusSelect"
+                                        selectedKey="{createFlight>/FlightStatus}"
+                                        width="100%">
+
+                                        <items>
+
+                                            <core:Item
+                                                id="createStatusOnTime"
+                                                key="ON TIME"
+                                                text="On Time" />
+
+                                            <core:Item
+                                                id="createStatusDelayed"
+                                                key="DELAYED"
+                                                text="Delayed" />
+
+                                            <core:Item
+                                                id="createStatusDeparted"
+                                                key="DEPARTED"
+                                                text="Departed" />
+
+                                            <core:Item
+                                                id="createStatusLanded"
+                                                key="LANDED"
+                                                text="Landed" />
+
+                                            <core:Item
+                                                id="createStatusCancelled"
+                                                key="CANCELLED"
+                                                text="Cancelled" />
+
+                                        </items>
+
+                                    </Select>
+
+                                </VBox>
+
+                            </HBox>
+
+                        </VBox>
+
+                        <VBox
+                            id="createBookingsSection"
+                            class="createDialogSection sapUiMediumMarginTop">
+
+                            <OverflowToolbar
+                                id="createBookingsToolbar"
+                                class="createBookingsToolbar">
+
+                                <HBox
+                                    id="createBookingsHeading"
+                                    alignItems="Center">
+
+                                    <core:Icon
+                                        id="createBookingsIcon"
+                                        src="sap-icon://customer-and-contacts"
+                                        class="createDialogSectionIcon" />
+
+                                    <VBox
+                                        id="createBookingsHeadingWrap">
+
+                                        <Title
+                                            id="createBookingsTitle"
+                                            text="Booking Details"
+                                            level="H4" />
+
+                                        <Text
+                                            id="createBookingsSubtitle"
+                                            text="Add one or more child ZBOOKING records." />
+
+                                    </VBox>
+
+                                </HBox>
+
+                                <ToolbarSpacer
+                                    id="createBookingsSpacer" />
+
+                                <Button
+                                    id="addBookingButton"
+                                    text="Add Booking"
+                                    icon="sap-icon://add"
+                                    type="Emphasized"
+                                    press=".onAddBookingRow" />
+
+                            </OverflowToolbar>
+
+                            <Table
+                                id="createBookingsTable"
+                                items="{createFlight>/bookings}"
+                                growing="false"
+                                noDataText="Add at least one booking."
+                                class="createBookingsTable sapUiSmallMarginTop">
+
+                                <columns>
+
+                                    <Column
+                                        id="createBookIdColumn">
+
+                                        <Text
+                                            id="createBookIdColumnText"
+                                            text="Booking ID" />
+
+                                    </Column>
+
+                                    <Column
+                                        id="createPassengerIdColumn"
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                        popinDisplay="Inline">
+
+                                        <Text
+                                            id="createPassengerIdColumnText"
+                                            text="Passenger ID" />
+
+                                    </Column>
+
+                                    <Column
+                                        id="createSeatColumn">
+
+                                        <Text
+                                            id="createSeatColumnText"
+                                            text="Seat" />
+
+                                    </Column>
+
+                                    <Column
+                                        id="createBookingDateColumn"
+                                        minScreenWidth="Tablet"
+                                        demandPopin="true"
+                                        popinDisplay="Inline">
+
+                                        <Text
+                                            id="createBookingDateColumnText"
+                                            text="Booking Date" />
+
+                                    </Column>
+
+                                    <Column
+                                        id="createBookingActionColumn"
+                                        width="4rem"
+                                        hAlign="Center">
+
+                                        <Text
+                                            id="createBookingActionColumnText"
+                                            text="" />
+
+                                    </Column>
+
+                                </columns>
+
+                                <items>
+
+                                    <ColumnListItem
+                                        id="createBookingRow">
+
+                                        <cells>
+
+                                            <Input
+                                                id="createBookingIdInput"
+                                                value="{createFlight>BookId}"
+                                                placeholder="Booking ID"
+                                                maxLength="10" />
+
+                                            <Input
+                                                id="createPassengerIdInput"
+                                                value="{createFlight>PassId}"
+                                                placeholder="Passenger ID"
+                                                maxLength="10" />
+
+                                            <Input
+                                                id="createSeatInput"
+                                                value="{createFlight>SeatNo}"
+                                                placeholder="12A"
+                                                maxLength="4" />
+
+                                            <DatePicker
+                                                id="createBookingDateInput"
+                                                value="{createFlight>BookingDate}"
+                                                valueFormat="yyyyMMdd"
+                                                displayFormat="yyyy-MM-dd"
+                                                placeholder="YYYY-MM-DD"
+                                                width="100%" />
+
+                                            <Button
+                                                id="removeBookingButton"
+                                                icon="sap-icon://delete"
+                                                type="Transparent"
+                                                tooltip="Remove booking"
+                                                press=".onRemoveBookingRow" />
+
+                                        </cells>
+
+                                    </ColumnListItem>
+
+                                </items>
+
+                            </Table>
+
+                        </VBox>
+
+                    </VBox>
+
+                </content>
+
+                <beginButton>
+
+                    <Button
+                        id="confirmCreateFlightButton"
+                        text="Create Flight &amp; Bookings"
+                        icon="sap-icon://accept"
+                        type="Emphasized"
+                        press=".onCreateDeepFlight" />
+
+                </beginButton>
+
+                <endButton>
+
+                    <Button
+                        id="cancelCreateFlightButton"
+                        text="Cancel"
+                        press=".onCancelCreateFlight" />
+
+                </endButton>
+
+            </Dialog>
+
+        </dependents>
+
+    </Page>
+
+</mvc:View>

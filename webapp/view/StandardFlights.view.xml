@@ -1,0 +1,375 @@
+<mvc:View
+    controllerName="com.flighttracking.zflighttracking.controller.StandardFlights"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <Page
+        id="standardFlightsPage"
+        title="SAP Standard Flights"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="standardFlightsPage">
+
+        <content>
+
+            <VBox
+                id="standardFlightsShell"
+                class="sapUiMediumMargin standardFlightsShell">
+
+
+                <!-- HEADER -->
+
+                <VBox
+                    id="standardFlightHeader"
+                    class="standardFlightHeaderCard">
+
+                    <HBox
+                        id="standardFlightHeaderRow"
+                        justifyContent="SpaceBetween"
+                        alignItems="Center"
+                        wrap="Wrap">
+
+                        <VBox
+                            id="standardFlightHeadingBox">
+
+                            <Title
+                                id="standardFlightTitle"
+                                text="SAP Standard Flight Data"
+                                level="H1" />
+
+                            <Text
+                                id="standardFlightSubtitle"
+                                text="Current flight records retrieved from SAP SFLIGHT, SPFLI and SCARR tables."
+                                class="dashboardSubtitle" />
+
+                        </VBox>
+
+
+                        <ObjectStatus
+                            id="standardFlightCount"
+                            text="{standardFlights>/totalCount} Flights"
+                            state="Information" />
+
+                    </HBox>
+
+                </VBox>
+
+
+                <!-- ACTION BAR -->
+
+                <OverflowToolbar
+                    id="standardFlightToolbar"
+                    class="dashboardToolbar sapUiMediumMarginTop">
+
+                    <Button
+                        id="refreshStandardFlightsButton"
+                        text="Refresh SAP Data"
+                        icon="sap-icon://refresh"
+                        type="Emphasized"
+                        press=".onRefresh" />
+
+                    <ToolbarSpacer
+                        id="standardFlightToolbarSpacer" />
+
+                    <core:Icon
+                        id="standardLastUpdatedIcon"
+                        src="sap-icon://history" />
+
+                    <Text
+                        id="standardLastUpdatedText"
+                        text="Last Updated:" />
+
+                    <Text
+                        id="standardLastUpdatedValue"
+                        text="{standardFlights>/lastUpdated}" />
+
+                </OverflowToolbar>
+
+
+                <!-- SEARCH -->
+
+                <SearchField
+                    id="standardFlightSearch"
+                    width="100%"
+                    placeholder="Search airline, flight, city, airport, aircraft or date..."
+                    liveChange=".onSearch"
+                    search=".onSearch"
+                    class="sapUiSmallMarginTop" />
+
+
+                <!-- TABLE -->
+
+                <Table
+                    id="standardFlightsTable"
+                    items="{standardFlights>/results}"
+                    growing="true"
+                    growingThreshold="20"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    noDataText="No SAP standard flights available."
+                    class="flightTablePremium sapUiSmallMarginTop">
+
+                    <headerToolbar>
+
+                        <OverflowToolbar
+                            id="standardTableHeader">
+
+                            <Title
+                                id="standardAvailableFlightsTitle"
+                                text="Available SAP Flights"
+                                level="H3" />
+
+                            <ToolbarSpacer
+                                id="standardTableHeaderSpacer" />
+
+                            <ObjectStatus
+                                id="standardRecordsStatus"
+                                text="{standardFlights>/totalCount} Records"
+                                state="Information" />
+
+                        </OverflowToolbar>
+
+                    </headerToolbar>
+
+
+                    <columns>
+
+                        <Column
+                            id="standardFlightNumberColumn"
+                            width="8rem">
+
+                            <Text
+                                id="standardFlightNumberHeader"
+                                text="Flight" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardAirlineColumn"
+                            minScreenWidth="Tablet"
+                            demandPopin="true"
+                            popinDisplay="Inline">
+
+                            <Text
+                                id="standardAirlineHeader"
+                                text="Airline" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardDateColumn"
+                            width="9rem">
+
+                            <Text
+                                id="standardDateHeader"
+                                text="Flight Date" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardDepartureColumn"
+                            minScreenWidth="Tablet"
+                            demandPopin="true"
+                            popinDisplay="Block">
+
+                            <Text
+                                id="standardDepartureHeader"
+                                text="Departure" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardArrivalColumn"
+                            minScreenWidth="Tablet"
+                            demandPopin="true"
+                            popinDisplay="Block">
+
+                            <Text
+                                id="standardArrivalHeader"
+                                text="Arrival" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardAircraftColumn"
+                            minScreenWidth="Desktop"
+                            demandPopin="true"
+                            popinDisplay="Inline">
+
+                            <Text
+                                id="standardAircraftHeader"
+                                text="Aircraft" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardSeatsColumn"
+                            minScreenWidth="Desktop"
+                            demandPopin="true"
+                            popinDisplay="Inline">
+
+                            <Text
+                                id="standardSeatsHeader"
+                                text="Seats" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardAvailableColumn"
+                            minScreenWidth="Tablet"
+                            demandPopin="true"
+                            popinDisplay="Inline">
+
+                            <Text
+                                id="standardAvailableHeader"
+                                text="Available" />
+
+                        </Column>
+
+
+                        <Column
+                            id="standardPriceColumn"
+                            hAlign="End">
+
+                            <Text
+                                id="standardPriceHeader"
+                                text="Price" />
+
+                        </Column>
+
+                    </columns>
+
+
+                    <items>
+
+                        <ColumnListItem
+                            id="standardFlightRow"
+                            vAlign="Middle">
+
+                            <cells>
+
+
+                                <!-- FLIGHT -->
+
+                                <ObjectIdentifier
+                                    id="standardFlightNumberValue"
+                                    title="{standardFlights>FlightNumber}"
+                                    text="{standardFlights>Connid}" />
+
+
+                                <!-- AIRLINE -->
+
+                                <ObjectIdentifier
+                                    id="standardAirlineValue"
+                                    title="{standardFlights>Carrname}"
+                                    text="{standardFlights>Carrid}" />
+
+
+                                <!-- DATE -->
+
+                                <Text
+                                    id="standardDateValue"
+                                    text="{standardFlights>DateDisplay}" />
+
+
+                                <!-- DEPARTURE -->
+
+                                <VBox
+                                    id="standardDepartureValueBox">
+
+                                    <Text
+                                        id="standardDepartureValue"
+                                        text="{standardFlights>DepartureDisplay}" />
+
+                                    <ObjectStatus
+                                        id="standardDepartureTime"
+                                        text="{standardFlights>DepTimeDisplay}"
+                                        icon="sap-icon://flight"
+                                        state="Information" />
+
+                                </VBox>
+
+
+                                <!-- ARRIVAL -->
+
+                                <VBox
+                                    id="standardArrivalValueBox">
+
+                                    <Text
+                                        id="standardArrivalValue"
+                                        text="{standardFlights>ArrivalDisplay}" />
+
+                                    <ObjectStatus
+                                        id="standardArrivalTime"
+                                        text="{standardFlights>ArrTimeDisplay}"
+                                        icon="sap-icon://accept"
+                                        state="Success" />
+
+                                </VBox>
+
+
+                                <!-- AIRCRAFT -->
+
+                                <ObjectIdentifier
+                                    id="standardAircraftValue"
+                                    title="{standardFlights>PlaneType}"
+                                    text="Aircraft" />
+
+
+                                <!-- SEAT OCCUPANCY -->
+
+                                <VBox
+                                    id="standardSeatInformation">
+
+                                    <Text
+                                        id="standardSeatCount"
+                                        text="{standardFlights>OccupiedSeats} / {standardFlights>SeatsMax}" />
+
+                                    <ProgressIndicator
+                                        id="standardOccupancyIndicator"
+                                        percentValue="{standardFlights>OccupancyPercent}"
+                                        displayValue="{standardFlights>OccupancyPercent}%"
+                                        width="8rem"
+                                        state="Information" />
+
+                                </VBox>
+
+
+                                <!-- AVAILABLE -->
+
+                                <ObjectStatus
+                                    id="standardAvailableValue"
+                                    text="{standardFlights>AvailableSeats} Seats"
+                                    state="{standardFlights>AvailabilityState}" />
+
+
+                                <!-- PRICE -->
+
+                                <ObjectNumber
+                                    id="standardPriceValue"
+                                    number="{standardFlights>Price}"
+                                    unit="{standardFlights>Currency}" />
+
+                            </cells>
+
+                        </ColumnListItem>
+
+                    </items>
+
+                </Table>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>
